@@ -39,17 +39,63 @@ typedef struct txInt256_t {
     uint8_t length;
 } txInt256_t;
 
+
+typedef enum contractType_e {
+    ACCOUNTCREATECONTRACT = 0,
+    TRANSFERCONTRACT,
+    TRANSFERASSETCONTRACT,
+    VOTEASSETCONTRACT,
+    VOTEWITNESSCONTRACT,
+    WITNESSCREATECONTRACT,
+    ASSETISSUECONTRACT,
+    WITNESSUPDATECONTRACT = 8,
+    PARTICIPATEASSETISSUECONTRACT,
+    ACCOUNTUPDATECONTRACT,
+    FREEZEBALANCECONTRACT,
+    UNFREEZEBALANCECONTRACT,
+    WITHDRAWBALANCECONTRACT,
+    UNFREEZEASSETCONTRACT,
+    UPDATEASSETCONTRACT,
+    PROPOSALCREATECONTRACT,
+    PROPOSALAPPROVECONTRACT,
+    PROPOSALDELETECONTRACT,
+    SETACCOUNTIDCONTRACT,
+    CUSTOMCONTRACT,
+    CREATESMARTCONTRACT = 30,
+    TRIGGERSMARTCONTRACT,
+    EXCHANGECREATECONTRACT = 41,
+    EXCHANGEINJECTCONTRACT,
+    EXCHANGEWITHDRAWCONTRACT,
+    EXCHANGETRANSACTIONCONTRACT,
+    UPDATEENERGYLIMITCONTRACT,
+    ACCOUNTPERMISSIONUPDATECONTRACT,
+    FREEZEBALANCEV2CONTRACT = 54,
+    UNFREEZEBALANCEV2CONTRACT,
+    WITHDRAWEXPIREUNFREEZECONTRACT,
+    DELEGATERESOURCECONTRACT,
+    UNDELEGATERESOURCECONTRACT,
+
+    UNKNOWN_CONTRACT = 254,
+    INVALID_CONTRACT = 255
+} contractType_e;
+
 typedef struct txContent_t {
-    txInt256_t gasprice;  // Used as MaxFeePerGas when dealing with EIP1559
-                          // transactions.
-    txInt256_t startgas;  // Also known as `gasLimit`.
-    txInt256_t value;
-    txInt256_t nonce;
-    txInt256_t chainID;
-    uint8_t destination[ADDRESS_LENGTH];
-    uint8_t destinationLength;
-    uint8_t v[8];
-    uint8_t vLength;
-    bool dataPresent;
+    uint64_t amount[2];
+    uint64_t exchangeID;
+    uint8_t account[TRON_ADDRESS_SIZE];
+    uint8_t destination[TRON_ADDRESS_SIZE];
+    uint8_t contractAddress[TRON_ADDRESS_SIZE];
+    uint8_t TRC20Amount[32];
+    uint8_t decimals[2];
+    uint8_t url[MAX_URL_SIZE];
+    char tokenNames[2][MAX_TOKEN_LENGTH];
+    uint8_t tokenNamesLength[2];
+    uint8_t resource;
+    uint8_t TRC20Method;
+    uint32_t customSelector;
+    contractType_e contractType;
+    uint64_t dataBytes;
+    uint8_t permission_id;
+    uint32_t customData;
 } txContent_t;
 // --8<-- [end:tx_content_structures]

@@ -195,6 +195,9 @@ bool adjustDecimals(const char *src,
     return true;
 }
 
+/*
+// TODO. KEEP OLD FORMAT
+// This "4.2 ENS" instead of "ENS 4.2"
 bool amountToString(const uint8_t *amount,
                     uint8_t amount_size,
                     uint8_t decimals,
@@ -237,6 +240,42 @@ bool amountToString(const uint8_t *amount,
     strlcat(out_buffer, " ", out_buffer_size);
     strlcat(out_buffer, ticker, out_buffer_size);
 
+    return true;
+}*/
+
+// This is "ENS 4.2"
+bool amountToString(const uint8_t *amount,
+                    uint8_t amount_size,
+                    uint8_t decimals,
+                    const char *ticker,
+                    char *out_buffer,
+                    size_t out_buffer_size) {
+    char tmp_buffer[100] = {0};
+
+    if (uint256_to_decimal(amount, amount_size, tmp_buffer, sizeof(tmp_buffer)) == false) {
+        return false;
+    }
+
+    uint8_t amount_len = strnlen(tmp_buffer, sizeof(tmp_buffer));
+    uint8_t ticker_len = strnlen(ticker, MAX_TICKER_LEN);
+
+    if (ticker_len > 0) {
+        if (out_buffer_size <= ticker_len + 1) {
+            return false;
+        }
+        memcpy(out_buffer, ticker, ticker_len);
+        out_buffer[ticker_len++] = ' ';
+    }
+
+    if (adjustDecimals(tmp_buffer,
+                       amount_len,
+                       out_buffer + ticker_len,
+                       out_buffer_size - ticker_len - 1,
+                       decimals) == false) {
+        return false;
+    }
+
+    out_buffer[out_buffer_size - 1] = '\0';
     return true;
 }
 

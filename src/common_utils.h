@@ -33,6 +33,12 @@
 // The standard length of an Ethereum address
 #define ADDRESS_LENGTH 20
 
+// The standard length of an TRON Ethereum-format address
+#define TRON_ADDRESS_SIZE             21
+
+#define MAX_URL_SIZE            256
+#define MAX_TOKEN_LENGTH         67
+
 // The length of a 128-bit integer in bytes
 #define INT128_LENGTH 16
 

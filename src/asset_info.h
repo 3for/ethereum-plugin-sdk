@@ -26,7 +26,7 @@
 #define COLLECTION_NAME_MAX_LEN 70
 
 typedef struct nftInfo_t {
-    uint8_t contractAddress[ADDRESS_LENGTH];  // must be first item
+    uint8_t contractAddress[TRON_ADDRESS_SIZE];  // must be first item
     char collectionName[COLLECTION_NAME_MAX_LEN + 1];
 } nftInfo_t;
 
@@ -35,7 +35,7 @@ typedef struct nftInfo_t {
 #define MAX_TICKER_LEN 51  // 50 characters + '\0'
 
 typedef struct tokenDefinition_t {
-    uint8_t address[ADDRESS_LENGTH];  // must be first item
+    uint8_t address[TRON_ADDRESS_SIZE];  // must be first item
     char ticker[MAX_TICKER_LEN];
     uint8_t decimals;
 } tokenDefinition_t;
