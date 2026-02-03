@@ -197,7 +197,7 @@ bool adjustDecimals(const char *src,
 
 /*
 // TODO. KEEP OLD FORMAT
-// This "4.2 ENS" instead of "ENS 4.2"
+// "4.2 ENS" instead of "ENS 4.2"
 bool amountToString(const uint8_t *amount,
                     uint8_t amount_size,
                     uint8_t decimals,
