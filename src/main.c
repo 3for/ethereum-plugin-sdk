@@ -21,7 +21,7 @@
 // Calls the ethereum app.
 static void call_app_ethereum() {
     unsigned int libcall_params[5];
-    libcall_params[0] = (unsigned int) "Ethereum";
+    libcall_params[0] = (unsigned int) "Tron";
     libcall_params[1] = 0x100;
     libcall_params[2] = RUN_APPLICATION;
     libcall_params[3] = (unsigned int) NULL;
