@@ -35,6 +35,8 @@
 
 // The standard length of an TRON Ethereum-format address
 #define TRON_ADDRESS_SIZE             21
+// The standard length of a TRON Base58Check address string (without '\0')
+#define TRON_BASE58CHECK_ADDRESS_SIZE 34
 
 #define MAX_URL_SIZE            256
 #define MAX_TOKEN_LENGTH         67
@@ -246,6 +248,20 @@ bool getEthDisplayableAddress(const uint8_t *in,
                               char *out,
                               size_t out_len,
                               uint64_t chainId);
+
+/**
+ * @brief Converts an Ethereum hex address string to a TRON Base58Check address.
+ *
+ * Accepts both `0x`-prefixed and non-prefixed 40-hex-character Ethereum
+ * address strings. The output buffer must be at least
+ * `TRON_BASE58CHECK_ADDRESS_SIZE + 1` bytes long.
+ *
+ * @param ethAddress Ethereum address string (40 hex chars, with optional `0x`).
+ * @param out58 Output buffer for the TRON Base58Check string.
+ * @param out58_len Size of the output buffer.
+ * @return true on success, false on invalid input or insufficient output size.
+ */
+bool ethToTronBase58(const char *ethAddress, char *out58, size_t out58_len);
 
 /**
  * @brief Checks if a buffer is entirely filled with zeroes.

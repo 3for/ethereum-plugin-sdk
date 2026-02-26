@@ -19,9 +19,40 @@
 #include <string.h>
 
 #include "asset_info.h"
+#include "base58.h"
 #include "common_utils.h"
 #include "lcx_ecfp.h"
 #include "lcx_sha3.h"
+
+static bool hex_char_to_nibble(char c, uint8_t *out) {
+    if (c >= '0' && c <= '9') {
+        *out = (uint8_t) (c - '0');
+        return true;
+    }
+    if (c >= 'a' && c <= 'f') {
+        *out = (uint8_t) (c - 'a' + 10);
+        return true;
+    }
+    if (c >= 'A' && c <= 'F') {
+        *out = (uint8_t) (c - 'A' + 10);
+        return true;
+    }
+    return false;
+}
+
+static bool hex_string_to_bytes_20(const char *hex, uint8_t out[static ADDRESS_LENGTH]) {
+    for (size_t i = 0; i < ADDRESS_LENGTH; i++) {
+        uint8_t high;
+        uint8_t low;
+
+        if (!hex_char_to_nibble(hex[2 * i], &high) ||
+            !hex_char_to_nibble(hex[2 * i + 1], &low)) {
+            return false;
+        }
+        out[i] = (high << 4) | low;
+    }
+    return true;
+}
 
 int array_bytes_string(char *out, size_t outl, const void *value, size_t len) {
     if (outl <= 2) {
@@ -374,6 +405,52 @@ bool getEthDisplayableAddress(const uint8_t *in,
         return false;
     }
 
+    return true;
+}
+
+bool ethToTronBase58(const char *ethAddress, char *out58, size_t out58_len) {
+    uint8_t eth20[ADDRESS_LENGTH];
+    uint8_t tronAddr[TRON_ADDRESS_SIZE];
+    uint8_t sha256[CX_SHA256_SIZE];
+    uint8_t addchecksum[TRON_ADDRESS_SIZE + 4];
+    const char *hex;
+
+    if (ethAddress == NULL || out58 == NULL ||
+        out58_len < (TRON_BASE58CHECK_ADDRESS_SIZE + 1)) {
+        return false;
+    }
+    out58[0] = '\0';
+
+    if (ethAddress[0] == '0' && (ethAddress[1] == 'x' || ethAddress[1] == 'X')) {
+        hex = ethAddress + 2;
+    } else {
+        hex = ethAddress;
+    }
+
+    if (strnlen(hex, (ADDRESS_LENGTH * 2) + 1) != (ADDRESS_LENGTH * 2)) {
+        return false;
+    }
+    if (!hex_string_to_bytes_20(hex, eth20)) {
+        return false;
+    }
+
+    tronAddr[0] = 0x41;
+    memcpy(tronAddr + 1, eth20, ADDRESS_LENGTH);
+
+    cx_hash_sha256(tronAddr, sizeof(tronAddr), sha256, sizeof(sha256));
+    cx_hash_sha256(sha256, sizeof(sha256), sha256, sizeof(sha256));
+
+    memcpy(addchecksum, tronAddr, sizeof(tronAddr));
+    memcpy(addchecksum + sizeof(tronAddr), sha256, 4);
+
+    if (base58_encode(addchecksum,
+                      sizeof(addchecksum),
+                      out58,
+                      TRON_BASE58CHECK_ADDRESS_SIZE) < 0) {
+        out58[0] = '\0';
+        return false;
+    }
+    out58[TRON_BASE58CHECK_ADDRESS_SIZE] = '\0';
     return true;
 }
 
