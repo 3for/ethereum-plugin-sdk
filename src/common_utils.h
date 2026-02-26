@@ -30,6 +30,8 @@
 // represented in Wei.
 #define WEI_TO_ETHER 18
 
+#define SUN_TO_TRX 6
+
 // The standard length of an Ethereum address
 #define ADDRESS_LENGTH 20
 

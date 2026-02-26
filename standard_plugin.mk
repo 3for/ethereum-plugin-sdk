@@ -62,4 +62,6 @@ DISABLE_STANDARD_BAGL_UX_FLOW = 1
 DISABLE_DEBUG_LEDGER_ASSERT = 1
 DISABLE_DEBUG_THROW = 1
 
+APP_SOURCE_FILES += $(BOLOS_SDK)/lib_standard_app/base58.c
+
 include $(BOLOS_SDK)/Makefile.standard_app
