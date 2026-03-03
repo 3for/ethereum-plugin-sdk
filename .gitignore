@@ -1,2 +1,3 @@
 # Ignore mkdocs build
 site/
+.generated/
