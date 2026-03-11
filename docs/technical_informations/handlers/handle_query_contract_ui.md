@@ -2,12 +2,12 @@
 
 ## Handle explanation
 
---8<-- "src/eth_plugin_interface.h:handle_query_contract_ui_explanation"
+--8<-- "src/tron_plugin_interface.h:handle_query_contract_ui_explanation"
 
 ## Fields descriptions
 
 ```c
---8<-- "src/eth_plugin_interface.h:handle_query_contract_ui_parameters"
+--8<-- "src/tron_plugin_interface.h:handle_query_contract_ui_parameters"
 ```
 
 ## Provided token structure

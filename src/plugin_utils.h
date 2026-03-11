@@ -20,7 +20,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "eth_plugin_interface.h"
+#include "tron_plugin_interface.h"
 
 // --8<-- [start:plugin_utils]
 // Size of a selector in bytes

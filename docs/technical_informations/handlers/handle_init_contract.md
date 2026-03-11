@@ -2,10 +2,10 @@
 
 ## Handle explanation
 
---8<-- "src/eth_plugin_interface.h:handle_init_contract_explanation"
+--8<-- "src/tron_plugin_interface.h:handle_init_contract_explanation"
 
 ## Fields descriptions
 
 ```c
---8<-- "src/eth_plugin_interface.h:handle_init_contract_parameters"
+--8<-- "src/tron_plugin_interface.h:handle_init_contract_parameters"
 ```

@@ -11,5 +11,5 @@ The ethereum application will never modify the content of the structure.
 
 This is the size available for the context of your plugin:
 ```c
---8<-- "src/eth_plugin_interface.h:plugin_context"
+--8<-- "src/tron_plugin_interface.h:plugin_context"
 ```

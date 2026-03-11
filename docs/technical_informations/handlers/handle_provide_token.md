@@ -2,12 +2,12 @@
 
 ## Handle explanation
 
---8<-- "src/eth_plugin_interface.h:handle_provide_token_explanation"
+--8<-- "src/tron_plugin_interface.h:handle_provide_token_explanation"
 
 ## Fields descriptions
 
 ```c
---8<-- "src/eth_plugin_interface.h:handle_provide_token_parameters"
+--8<-- "src/tron_plugin_interface.h:handle_provide_token_parameters"
 ```
 
 ## Provided token structure
