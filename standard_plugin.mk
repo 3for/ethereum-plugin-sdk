@@ -1,5 +1,5 @@
 # ****************************************************************************
-#    Ledger Ethereum Plugin SDK
+#    Ledger TRON Plugin SDK
 #    (c) 2023 Ledger SAS.
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,7 @@ include $(BOLOS_SDK)/Makefile.defines
 APPVERSION ?= "$(APPVERSION_M).$(APPVERSION_N).$(APPVERSION_P)"
 
 # Application source files
-APP_SOURCE_PATH += src ethereum-plugin-sdk
+APP_SOURCE_PATH += src tron-plugin-sdk
 INCLUDES_PATH += ${BOLOS_SDK}/lib_standard_app
 
 # Application icons following guidelines:
