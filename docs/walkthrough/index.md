@@ -31,7 +31,7 @@ Let's scroll down and click on "Click to see more", to read:
 
 ![Screenshot](img/uniswap.webp)
 
-The header line shows `Method ID` to be `0x7ff36ab5`.
+The header line shows `Method ID` to be `0x1cf4401e`.
 This is going to be the 4 bytes of `SWAP_EXACT_TRX_FOR_TOKENS_SELECTOR`:
 
 ```c
