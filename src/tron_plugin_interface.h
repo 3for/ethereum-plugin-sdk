@@ -87,9 +87,8 @@ typedef enum eth_ui_type_e {
 
 // Helper to check that the actual plugin context structure is not bigger than
 // the allocated memory
-#define ASSERT_SIZEOF_PLUGIN_CONTEXT(s)              \
-    _Static_assert(sizeof(s) <= PLUGIN_CONTEXT_SIZE, \
-                   "Plugin context structure is too big.")
+#define ASSERT_SIZEOF_PLUGIN_CONTEXT(s) \
+    _Static_assert(sizeof(s) <= PLUGIN_CONTEXT_SIZE, "Plugin context structure is too big.")
 
 /*
  * HANDLERS AND PARAMETERS
@@ -188,7 +187,7 @@ typedef struct tronPluginProvideParameter_s {
     // ===== READ WRITE ===== //
     // RW INPUT. Contains the semi-persistent RAM space that can be used by the
     // plugin in each handle call.
-    uint8_t *pluginContext; // PLUGIN_CONTEXT_SIZE
+    uint8_t *pluginContext;  // PLUGIN_CONTEXT_SIZE
 
     // ===== WRITE ONLY ===== //
     // OUTPUT. Used by the plugin to inform the TRON application of the
@@ -237,7 +236,7 @@ typedef struct tronPluginFinalize_s {
     // ===== READ WRITE ===== //
     // RW INPUT. Contains the semi-persistent RAM space that can be used by the
     // plugin in each handle call.
-    uint8_t *pluginContext; // PLUGIN_CONTEXT_SIZE
+    uint8_t *pluginContext;  // PLUGIN_CONTEXT_SIZE
 
     // ===== WRITE ONLY ===== //
     // OUTPUT. The plugin can set this value to a 20 bytes array in
@@ -269,7 +268,8 @@ typedef struct tronPluginFinalize_s {
     // OUTPUT. The plugin needs to set this pointer to a 20 bytes address in
     // pluginContext to display as the address in UI_AMOUNT_ADDRESS case.
     // Set to the user's address if uiType is UI_TYPE_GENERIC
-    const uint8_t *address;  // set a pointer to the destination address (in pluginContext) if uiType is UI_AMOUNT_ADDRESS.
+    const uint8_t *address;  // set a pointer to the destination address (in pluginContext) if
+                             // uiType is UI_AMOUNT_ADDRESS.
 
     // OUTPUT. Used by the plugin to inform the TRON application of the
     // result of this handle The following return codes are expected, any other
@@ -319,7 +319,7 @@ typedef struct tronPluginProvideInfo_s {
     // ===== READ WRITE ===== //
     // RW INPUT. Contains the semi-persistent RAM space that can be used by the
     // plugin in each handle call.
-    uint8_t *pluginContext; // PLUGIN_CONTEXT_SIZE
+    uint8_t *pluginContext;  // PLUGIN_CONTEXT_SIZE
 
     // ===== WRITE ONLY ===== //
     // OUTPUT. Set by the plugin if it needs to display additional screens based
@@ -366,7 +366,7 @@ typedef struct ethQueryContractID_s {
     // ===== READ WRITE ===== //
     // RW INPUT. Contains the semi-persistent RAM space that can be used by the
     // plugin in each handle call.
-    uint8_t *pluginContext; // PLUGIN_CONTEXT_SIZE
+    uint8_t *pluginContext;  // PLUGIN_CONTEXT_SIZE
 
     // ===== WRITE ONLY ===== //
     // OUTPUT. Pointer to the name of the plugin
@@ -423,7 +423,7 @@ typedef struct ethQueryContractUI_s {
     // ===== READ WRITE ===== //
     // RW INPUT. Contains the semi-persistent RAM space that can be used by the
     // plugin in each handle call.
-    uint8_t *pluginContext; // PLUGIN_CONTEXT_SIZE
+    uint8_t *pluginContext;  // PLUGIN_CONTEXT_SIZE
 
     // ===== WRITE ONLY ===== //
     // OUTPUT. Pointer to the first line of the screen, to be filled by the

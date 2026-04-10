@@ -102,8 +102,5 @@ bool U4BE_from_parameter(const uint8_t *parameter, uint32_t *value);
  * selector will be stored (if not NULL).
  * @return true if the selector was found, false otherwise.
  */
-bool find_selector(uint32_t selector,
-                   const uint32_t *array,
-                   size_t size,
-                   size_t *idx);
+bool find_selector(uint32_t selector, const uint32_t *array, size_t size, size_t *idx);
 // --8<-- [end:plugin_utils]

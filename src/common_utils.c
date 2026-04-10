@@ -45,8 +45,7 @@ static bool hex_string_to_bytes_20(const char *hex, uint8_t out[static ADDRESS_L
         uint8_t high;
         uint8_t low;
 
-        if (!hex_char_to_nibble(hex[2 * i], &high) ||
-            !hex_char_to_nibble(hex[2 * i + 1], &low)) {
+        if (!hex_char_to_nibble(hex[2 * i], &high) || !hex_char_to_nibble(hex[2 * i + 1], &low)) {
             return false;
         }
         out[i] = (high << 4) | low;
@@ -113,10 +112,7 @@ bool u64_to_string(uint64_t src, char *dst, uint8_t dst_size) {
     return true;
 }
 
-bool uint256_to_decimal(const uint8_t *value,
-                        size_t value_len,
-                        char *out,
-                        size_t out_len) {
+bool uint256_to_decimal(const uint8_t *value, size_t value_len, char *out, size_t out_len) {
     if (value_len > INT256_LENGTH) {
         // value len is bigger than INT256_LENGTH ?!
         return false;
@@ -240,21 +236,16 @@ bool amountToString(const uint8_t *amount,
     memset(out_buffer, 0, out_buffer_size);
 
     // Convert the amount to decimal string first
-    if (uint256_to_decimal(amount,
-                           amount_size,
-                           raw_amount_buffer,
-                           sizeof(raw_amount_buffer)) == false) {
+    if (uint256_to_decimal(amount, amount_size, raw_amount_buffer, sizeof(raw_amount_buffer)) ==
+        false) {
         PRINTF("uint256_to_decimal failed\n");
         return false;
     }
     // Adjust the decimal position, store the result in out_buffer
     amount_len = strnlen(raw_amount_buffer, sizeof(raw_amount_buffer));
     ticker_len = strnlen(ticker, MAX_TICKER_LEN);
-    if (adjustDecimals(raw_amount_buffer,
-                       amount_len,
-                       out_buffer,
-                       out_buffer_size,
-                       decimals) == false) {
+    if (adjustDecimals(raw_amount_buffer, amount_len, out_buffer, out_buffer_size, decimals) ==
+        false) {
         PRINTF("adjustDecimals failed\n");
         return false;
     }
@@ -306,15 +297,11 @@ bool getEthAddressStringFromBinary(const uint8_t *address,
             break;
     }
     if (eip1191) {
-        if (!u64_to_string(chainId,
-                           (char *) locals_union.tmp,
-                           sizeof(locals_union.tmp))) {
+        if (!u64_to_string(chainId, (char *) locals_union.tmp, sizeof(locals_union.tmp))) {
             return false;
         }
         offset = strnlen((char *) locals_union.tmp, sizeof(locals_union.tmp));
-        strlcat((char *) locals_union.tmp + offset,
-                "0x",
-                sizeof(locals_union.tmp) - offset);
+        strlcat((char *) locals_union.tmp + offset, "0x", sizeof(locals_union.tmp) - offset);
         offset = strnlen((char *) locals_union.tmp, sizeof(locals_union.tmp));
     }
     for (i = 0; i < 20; i++) {
@@ -322,9 +309,7 @@ bool getEthAddressStringFromBinary(const uint8_t *address,
         locals_union.tmp[offset + 2 * i] = HEXDIGITS[(digit >> 4) & 0x0f];
         locals_union.tmp[offset + 2 * i + 1] = HEXDIGITS[digit & 0x0f];
     }
-    if (cx_keccak_256_hash(locals_union.tmp,
-                           offset + 40,
-                           locals_union.hashChecksum) != CX_OK) {
+    if (cx_keccak_256_hash(locals_union.tmp, offset + 40, locals_union.hashChecksum) != CX_OK) {
         return false;
     }
 
@@ -338,8 +323,7 @@ bool getEthAddressStringFromBinary(const uint8_t *address,
         if (digit < 10) {
             out[i] = HEXDIGITS[digit];
         } else {
-            int v =
-                (locals_union.hashChecksum[i / 2] >> (4 * (1 - i % 2))) & 0x0f;
+            int v = (locals_union.hashChecksum[i / 2] >> (4 * (1 - i % 2))) & 0x0f;
             if (v >= 8) {
                 out[i] = HEXDIGITS[digit] - 'a' + 'A';
             } else {
@@ -352,10 +336,7 @@ bool getEthAddressStringFromBinary(const uint8_t *address,
     return true;
 }
 
-bool getEthDisplayableAddress(const uint8_t *in,
-                              char *out,
-                              size_t out_len,
-                              uint64_t chainId) {
+bool getEthDisplayableAddress(const uint8_t *in, char *out, size_t out_len, uint64_t chainId) {
     if (out_len < 43) {
         strlcpy(out, "ERROR", out_len);
         return false;
@@ -377,8 +358,7 @@ bool ethToTronBase58(const char *ethAddress, char *out58, size_t out58_len) {
     uint8_t addchecksum[TRON_ADDRESS_SIZE + 4];
     const char *hex;
 
-    if (ethAddress == NULL || out58 == NULL ||
-        out58_len < (TRON_BASE58CHECK_ADDRESS_SIZE + 1)) {
+    if (ethAddress == NULL || out58 == NULL || out58_len < (TRON_BASE58CHECK_ADDRESS_SIZE + 1)) {
         return false;
     }
     out58[0] = '\0';
@@ -405,10 +385,7 @@ bool ethToTronBase58(const char *ethAddress, char *out58, size_t out58_len) {
     memcpy(addchecksum, tronAddr, sizeof(tronAddr));
     memcpy(addchecksum + sizeof(tronAddr), sha256, 4);
 
-    if (base58_encode(addchecksum,
-                      sizeof(addchecksum),
-                      out58,
-                      TRON_BASE58CHECK_ADDRESS_SIZE) < 0) {
+    if (base58_encode(addchecksum, sizeof(addchecksum), out58, TRON_BASE58CHECK_ADDRESS_SIZE) < 0) {
         out58[0] = '\0';
         return false;
     }

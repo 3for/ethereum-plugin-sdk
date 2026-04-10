@@ -39,7 +39,6 @@ typedef struct txInt256_t {
     uint8_t length;
 } txInt256_t;
 
-
 typedef enum contractType_e {
     ACCOUNTCREATECONTRACT = 0,
     TRANSFERCONTRACT,

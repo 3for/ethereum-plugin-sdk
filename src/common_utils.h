@@ -36,12 +36,12 @@
 #define ADDRESS_LENGTH 20
 
 // The standard length of an TRON Ethereum-format address
-#define TRON_ADDRESS_SIZE             21
+#define TRON_ADDRESS_SIZE 21
 // The standard length of a TRON Base58Check address string (without '\0')
 #define TRON_BASE58CHECK_ADDRESS_SIZE 34
 
-#define MAX_URL_SIZE            256
-#define MAX_TOKEN_LENGTH         67
+#define MAX_URL_SIZE     256
+#define MAX_TOKEN_LENGTH 67
 
 // The length of a 128-bit integer in bytes
 #define INT128_LENGTH 16
@@ -117,10 +117,7 @@ bool u64_to_string(uint64_t src, char *dst, uint8_t dst_size);
  * will be stored.
  * @param out_len The length of the output buffer `out`.
  */
-bool uint256_to_decimal(const uint8_t *value,
-                        size_t value_len,
-                        char *out,
-                        size_t out_len);
+bool uint256_to_decimal(const uint8_t *value, size_t value_len, char *out, size_t out_len);
 
 /**
  * @brief Converts an amount to its string representation with decimals and
@@ -246,10 +243,7 @@ bool getEthAddressStringFromBinary(const uint8_t *address,
  * uint8_t*:0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB ->
  *      char*:"0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB\0"
  */
-bool getEthDisplayableAddress(const uint8_t *in,
-                              char *out,
-                              size_t out_len,
-                              uint64_t chainId);
+bool getEthDisplayableAddress(const uint8_t *in, char *out, size_t out_len, uint64_t chainId);
 
 /**
  * @brief Converts an Ethereum hex address string to a TRON Base58Check address.

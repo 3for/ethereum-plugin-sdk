@@ -31,10 +31,7 @@ bool U4BE_from_parameter(const uint8_t *parameter, uint32_t *value) {
     return false;
 }
 
-bool find_selector(uint32_t selector,
-                   const uint32_t *array,
-                   size_t size,
-                   size_t *idx) {
+bool find_selector(uint32_t selector, const uint32_t *array, size_t size, size_t *idx) {
     for (size_t i = 0; i < size; ++i) {
         if (selector == array[i]) {
             if (idx != NULL) *idx = i;
