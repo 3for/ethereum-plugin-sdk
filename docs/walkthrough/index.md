@@ -6,7 +6,7 @@ Sections of the template code you can edit are commented with a `EDIT THIS` mark
 
 In the `Makefile` you will need to change the following elements:
 
-- `APPNAME` to suit your plugin name (e.g., Paraswap, 1inch, Lido)
+- `APPNAME` to suit your plugin name (e.g., SunSwap)
 - `APPVERSION` for your plugin version
 
 ## Change the plugin icons
@@ -21,22 +21,22 @@ Incompatible icons will be detected by the CI.
 Let’s go to the first `EDIT THIS` comment in `app-plugin-boilerplate/src/plugin.h`. In this file you can list all the selectors for each contract. The template uses uses two selectors but you are not limited. <br/>
 Enter your selectors here, in the format X(NAME, value).
 
-### Example: Let's support `SwapExactEthForToken` from Uniswap V2
+### Example: Let's support `swapExactTRXForTokens` for `SwapRouterMock` contract on TRON Nile testnet
 
-You can find it using Etherscan, and you can also compose it using the ABI (Application Binary Interface).
+You can find it using Tronscan, and you can also compose it using the ABI (Application Binary Interface).
 
-By looking at [recent transactions on Uniswap](https://etherscan.io/txs?a=0x7a250d5630b4cf539739df2c5dacb4c659f2488d), we find a transaction with the `SwapExactEthForToken` method. Here is [an example](https://etherscan.io/tx/0x216bfa6fb8488901d168810cda1b716d1abcb002a87c3224180deaff00c950fc).
+By looking at [recent transactions on `SwapRouterMock` contract](https://nile.tronscan.io/#/contract/TM2dkGswmejM9FbKGWkjtugN34c6ZBxjzJ/transactions), we find a transaction with the `swapExactTRXForTokens` method. Here is [an example](https://nile.tronscan.io/#/transaction/ceceb0e20e7821f244ac47d1e7d7f00079decac0d9d02529091f14890e1fc2ae).
 
 Let's scroll down and click on "Click to see more", to read:
 
-![Screenshot](img/uniswap.webp)
+![Screenshot](img/mockswap.webp)
 
 The header line shows `Method ID` to be `0x1cf4401e`.
-This is going to be the 4 bytes of `SWAP_EXACT_TRX_FOR_TOKENS_SELECTOR`:
+This is going to be the 4 bytes of `SWAP_EXACT_TRX_FOR_TOKENS` selector:
 
 ```c
 #define SELECTORS_LIST(X)                    \
-    X(SWAP_EXACT_TRX_FOR_TOKENS_SELECTOR, 0x1cf4401e)
+    X(SWAP_EXACT_TRX_FOR_TOKENS, 0x1cf4401e)
 ```
 
 ## Update the `PLUGIN_SPECIFICATION.md` file
