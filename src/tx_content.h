@@ -1,6 +1,6 @@
 /*******************************************************************************
- *   Ledger Ethereum App
- *   (c) 2016-2019 Ledger
+ *   Ledger TRON App
+ *   (c) 2026-2029 Ledger
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@
 
 /*
 --8<-- [start:tx_content_explanation]
-Transaction data are provided to the plugin by the Ethereum application through
+Transaction data are provided to the plugin by the TRON application through
 the `txContent_t` structure.
 
 This structure is provided in every handler.

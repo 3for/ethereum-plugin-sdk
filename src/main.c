@@ -18,8 +18,8 @@
 #include "tron_plugin_interface.h"
 #include "swap_lib_calls.h"  // RUN_APPLICATION
 
-// Calls the ethereum app.
-static void call_app_ethereum() {
+// Calls the TRON app.
+static void call_app_tron() {
     unsigned int libcall_params[5];
     libcall_params[0] = (unsigned int) "Tron";
     libcall_params[1] = 0x100;
@@ -43,7 +43,7 @@ static void call_app_ethereum() {
     os_lib_call((unsigned int *) &libcall_params);
 }
 
-// Function to dispatch calls from the ethereum app.
+// Function to dispatch calls from the TRON app.
 static void dispatch_call(int message, void *parameters) {
     if (parameters != NULL) {
         switch (message) {
@@ -85,8 +85,8 @@ __attribute__((section(".boot"))) int main(int arg0) {
         TRY {
             // Check if plugin is called from the dashboard.
             if (!arg0) {
-                // Called from dashboard, launch Ethereum app
-                call_app_ethereum();
+                // Called from dashboard, launch TRON app
+                call_app_tron();
 
                 // Will not get reached.
                 __builtin_unreachable();
@@ -94,7 +94,7 @@ __attribute__((section(".boot"))) int main(int arg0) {
                 os_sched_exit(-1);
 
             } else {
-                // Not called from dashboard: called from the ethereum app!
+                // Not called from dashboard: called from the TRON app!
                 const unsigned int *args = (unsigned int *) arg0;
 
                 // If `TRON_PLUGIN_CHECK_PRESENCE` is set, this means the caller
@@ -105,7 +105,7 @@ __attribute__((section(".boot"))) int main(int arg0) {
                 }
             }
 
-            // Call `os_lib_end`, go back to the ethereum app.
+            // Call `os_lib_end`, go back to the TRON app.
             os_lib_end();
 
             // Will not get reached.
