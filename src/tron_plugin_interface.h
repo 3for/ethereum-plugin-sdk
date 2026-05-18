@@ -61,21 +61,21 @@ typedef enum tron_plugin_result_e {
 } tron_plugin_result_t;
 
 // Format of UI the TRON application has to use for this plugin
-typedef enum eth_ui_type_e {
+typedef enum tron_ui_type_e {
     // If uiType is UI_AMOUNT_ADDRESS, TRON will use the amount/address UI
     // the amount and address provided by the plugin will be used
     // If tokenLookup1 is set, the amount is provided for this token
     TRON_UI_TYPE_AMOUNT_ADDRESS = 0x01,
 
-    // If uiType is UI_TYPE_GENERIC, TRON will use the dedicated ETH plugin
+    // If uiType is UI_TYPE_GENERIC, TRON will use the dedicated TRON plugin
     // UI
-    // the ETH application provides tokens if requested then prompts for each UI
+    // the TRON application provides tokens if requested then prompts for each UI
     // field
-    // The first field is forced by the ETH app to be the name + version of the
+    // The first field is forced by the TRON app to be the name + version of the
     // plugin handling the
     // request. The last field is the fee amount
     TRON_UI_TYPE_GENERIC = 0x02,
-} eth_ui_type_t;
+} tron_ui_type_t;
 
 // --8<-- [start:plugin_context]
 // Plugin-only memory allocated by the TRON application and used by the
@@ -254,7 +254,7 @@ typedef struct tronPluginFinalize_s {
     // OUTPUT. The plugin needs to set this value to either
     // TRON_UI_TYPE_AMOUNT_ADDRESS for an amount/address UI or
     // TRON_UI_TYPE_GENERIC for a generic UI.
-    eth_ui_type_t uiType;
+    tron_ui_type_t uiType;
     union {
         // OUTPUT. The plugin needs to set this pointer to a 256 bits number in
         // pluginContext to display as the amount in UI_AMOUNT_ADDRESS case.
@@ -354,7 +354,7 @@ your use case.
 */
 
 // --8<-- [start:handle_query_contract_id_parameters]
-typedef struct ethQueryContractID_s {
+typedef struct tronQueryContractID_s {
     // ===== READ ONLY ===== //
     // INPUT. Transaction data available to the plugin. READ-ONLY.
     const txContent_t *txContent;
@@ -380,7 +380,7 @@ typedef struct ethQueryContractID_s {
     // - TRON_PLUGIN_RESULT_OK
     tron_plugin_result_t result;
 
-} ethQueryContractID_t;
+} tronQueryContractID_t;
 // --8<-- [end:handle_query_contract_id_parameters]
 
 /*
@@ -399,7 +399,7 @@ your use case.
 */
 
 // --8<-- [start:handle_query_contract_ui_parameters]
-typedef struct ethQueryContractUI_s {
+typedef struct tronQueryContractUI_s {
     // ===== READ ONLY ===== //
     // INPUT. Transaction data available to the plugin. READ-ONLY.
     const txContent_t *txContent;
@@ -439,7 +439,7 @@ typedef struct ethQueryContractUI_s {
     // - TRON_PLUGIN_RESULT_OK
     tron_plugin_result_t result;
 
-} ethQueryContractUI_t;
+} tronQueryContractUI_t;
 // --8<-- [end:handle_query_contract_ui_parameters]
 
 // Don't define the handlers when compiling the TRON application
@@ -450,7 +450,7 @@ void handle_init_contract(tronPluginInitContract_t *parameters);
 void handle_provide_parameter(tronPluginProvideParameter_t *parameters);
 void handle_finalize(tronPluginFinalize_t *parameters);
 void handle_provide_token(tronPluginProvideInfo_t *parameters);
-void handle_query_contract_id(ethQueryContractID_t *parameters);
-void handle_query_contract_ui(ethQueryContractUI_t *parameters);
+void handle_query_contract_id(tronQueryContractID_t *parameters);
+void handle_query_contract_ui(tronQueryContractUI_t *parameters);
 // --8<-- [end:handlers_functions]
 #endif
